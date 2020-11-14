@@ -1,10 +1,13 @@
 import threading
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 DRIVER_PATH = "C:\chromedriver.exe"
 
 def runTest():
-  driver = webdriver.Chrome(DRIVER_PATH)
+  chrome_options = Options()
+  chrome_options.add_argument("--headless")
+  driver = webdriver.Chrome(DRIVER_PATH, options=chrome_options)
   driver.get("http://localhost/Proyecto_OpenPay0/")
   driver.maximize_window()
 
@@ -26,8 +29,7 @@ def runTest():
   send_button = driver.find_element_by_id("btn-enviar")
   send_button.click()
 
-  # wait = WebDriverWait(driver, 30, poll_frequency=2, ignored_exceptions=[])
-  # transaction_status_element = wait.until(EC.pre)
+  # waits until the success/error pages loads.
   driver.implicitly_wait(30)
   transaction_status_element = driver.find_element_by_id("transaction-status")
   print(transaction_status_element.get_attribute("class"))
