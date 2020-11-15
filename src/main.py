@@ -1,4 +1,5 @@
 import threading
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -28,16 +29,21 @@ def runTest():
 
   send_button = driver.find_element_by_id("btn-enviar")
   send_button.click()
+  start_time = time.time()
 
   # waits until the success/error pages loads.
-  driver.implicitly_wait(30)
+  driver.implicitly_wait(60)
   transaction_status_element = driver.find_element_by_id("transaction-status")
-  print(transaction_status_element.get_attribute("class"))
+  end_time = time.time()
+  transaction_time = end_time - start_time
+  transaction_status = transaction_status_element.get_attribute("class")
+  print("status: " + transaction_status + " , time of response: " + str(transaction_time))
 
 
-number_of_tests = 4
+number_of_tests = 10
 
 for i in range(number_of_tests):
   test_thread = threading.Thread(target=runTest)
   test_thread.start()
+  time.sleep(0.15)
 
