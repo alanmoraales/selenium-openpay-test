@@ -31,14 +31,26 @@ def runTest():
   send_button.click()
   start_time = time.time()
 
-  # waits until the success/error pages loads.
+  # waits until the success/error pages loads, a maximum of 60 seconds
   driver.implicitly_wait(60)
   transaction_status_element = driver.find_element_by_id("transaction-status")
   end_time = time.time()
   transaction_time = end_time - start_time
   transaction_status = transaction_status_element.get_attribute("class")
-  print("status: " + transaction_status + " , time of response: " + str(transaction_time))
 
+  result = "status: " + transaction_status + ", time of response: " + str(transaction_time) 
+  resultFile = open("results.txt", "a")
+  print(result)
+  resultFile.write(result + "\n")
+  resultFile.close()
+
+
+def cleanResultsFile():
+  resultFile = open("results.txt", "w")
+  resultFile.write("")
+  resultFile.close()
+
+cleanResultsFile()
 
 number_of_tests = 10
 
