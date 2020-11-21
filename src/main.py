@@ -9,7 +9,7 @@ def runTest():
   chrome_options = Options()
   chrome_options.add_argument("--headless")
   driver = webdriver.Chrome(DRIVER_PATH, options=chrome_options)
-  driver.get("http://localhost/Proyecto_OpenPay0/")
+  driver.get("http://localhost/openpay/")
   driver.maximize_window()
 
   name_field = driver.find_element_by_id("name-field")
